@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "193542128407",
+    "firebase_url": "https://tech-python-trial.firebaseio.com",
+    "project_id": "tech-python-trial",
+    "storage_bucket": "tech-python-trial.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193542128407:android:5a463399047e57c9af2d52",
+        "android_client_info": {
+          "package_name": "com.example.novalists"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "193542128407-agu7laa0ri9krvof8crgibj22bcbhfl0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.novalists",
+            "certificate_hash": "e92810e3a79f9137af5aaf7f89ac9efb83aab38f"
+          }
+        },
+        {
+          "client_id": "193542128407-slg50k8g83rjiud3m7o9u8to6b4m3rug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3LJVpui7jre0Z7YdONHzpL7NjTzRrHS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "193542128407-slg50k8g83rjiud3m7o9u8to6b4m3rug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
