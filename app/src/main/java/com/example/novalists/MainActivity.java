@@ -1,61 +1,90 @@
 package com.example.novalists;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
     // General Variables
-    EditText UserID, Password;
+    EditText UserEmail, Password;
     Button LoginBtn;
     // Firebase Code
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
+    FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener currentState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseApp.initializeApp(this);
-        FirebaseApp.getInstance();
+
         // Connection with Front End Values
-        UserID = findViewById(R.id.userID);
+        UserEmail = findViewById(R.id.userEmail);
         Password = findViewById(R.id.password);
         LoginBtn = findViewById(R.id.loginbtn);
 
-        // User Input Values to the variables
-        final String userId = UserID.getText().toString().trim();
-        final String password = Password.getText().toString().trim();
+        // Firebase Code
+        mAuth = FirebaseAuth.getInstance();
 
-        // Connection to the Database
-        myRef = database.getReference().child("Tech Nova/"+ userId);
+//    // Check if user is signed in (non-null) and update UI accordingly.
+//    FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Toast.makeText(getApplicationContext(), "Value: " + value, Toast.LENGTH_LONG).show();
+        currentState = firebaseAuth -> {
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser != null){
+                String uid = currentUser.getUid();
+                Toast.makeText(MainActivity.this, "User ID: " + uid, Toast.LENGTH_SHORT).show();
+                Intent extra = new Intent(MainActivity.this,ExtraActivity.class);
+                extra.putExtra("User ID",uid);
+                startActivity(extra);
+            } else {
+                Toast.makeText(MainActivity.this, "Please, Login..!!", Toast.LENGTH_SHORT).show();
             }
+        };
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Toast.makeText(getApplicationContext(), "Error: " + error, Toast.LENGTH_LONG).show();
-            }
-        });
+        LoginBtn.setOnClickListener(view -> {
+            // User Input Values to the variables
+            final String userEmail = UserEmail.getText().toString().trim();
+            final String password = Password.getText().toString().trim();
+
+            mAuth.signInWithEmailAndPassword(userEmail, password)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            assert user != null;
+                            String uid = user.getUid();
+                            Toast.makeText(MainActivity.this, "User ID: " + uid, Toast.LENGTH_SHORT).show();
+                            Intent extra = new Intent(MainActivity.this,ExtraActivity.class);
+                            extra.putExtra("User ID",uid);
+                            startActivity(extra);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(MainActivity.this, "Authentication failed..!!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            });
+        }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(currentState);
     }
 }
