@@ -3,21 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/subtitle"
-        android:gravity="center"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
-        android:textColor="@color/smallHeader"
-        />
+    tools:context=".RegisterActivity">
 
     <TextView
         android:id="@+id/title"
@@ -25,21 +13,44 @@
         android:layout_height="wrap_content"
         android:text="@string/title"
         android:gravity="center"
-        android:layout_gravity="center"
-        android:textSize="30sp"
+        android:layout_gravity="top"
+        android:layout_marginTop="100dp"
+        android:textSize="50sp"
         android:textColor="@color/header"
         />
 
-    <Button
-        android:id="@+id/loginbtn"
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registerTitle"
+        android:gravity="center"
+        android:layout_marginTop="100dp"
+        android:textSize="30sp"
+        android:textColor="@color/smallHeader"
+        />
+
+    <EditText
+        android:id="@+id/userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/loginBtn"
-        android:textSize="15sp"
-        android:layout_marginTop="30dp"
+        android:hint="@string/emailHint"
+        android:inputType="textEmailAddress"
         android:layout_gravity="center"
-        android:background="@color/signUpBtn"
-        />
+        android:layout_marginTop="50dp"
+        android:textSize="12sp"
+        android:autofillHints=" " />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/passwordHint"
+        android:inputType="textPassword"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp"
+        android:autofillHints="Error" />
 
     <Button
         android:id="@+id/registerbtn"

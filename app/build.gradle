@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
@@ -38,6 +37,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.3.1'
     implementation 'com.google.firebase:firebase-core:17.4.4'
     implementation 'com.google.gms:google-services:4.3.3'
+    implementation 'com.google.firebase:firebase-auth:19.3.2'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -52,3 +52,5 @@ dependencies {
 
 
 }
+
+apply plugin: 'com.google.gms.google-services'

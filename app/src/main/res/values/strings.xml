@@ -8,11 +8,15 @@
     <string name="title">Nova List</string>
     <string name="companyNamePrefix">Powered by</string>
     <string name="companyName">Tech 4.32</string>
+    <string name="loginTitle">Login</string>
+    <string name="registerTitle">Register</string>
 
     <!-- Hint Strings   -->
-    <string name="userIDHint">Enter User ID</string>
+    <string name="emailHint">Enter Email Address</string>
     <string name="passwordHint">Enter Password</string>
 
     <!-- Buttons  -->
-    <string name="loginBtn">Po....!!</string>
+    <string name="loginBtn">Login</string>
+    <string name="signOutBtn">Logout</string>
+    <string name="registerBtn">Register Now</string>
 </resources>

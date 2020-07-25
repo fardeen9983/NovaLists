@@ -20,9 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    // General Variables
-    EditText UserEmail, Password;
-    Button LoginBtn;
+
+    Button LoginBtn, RegisterBtn;
     // Firebase Code
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
@@ -34,10 +33,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Connection with Front End Values
-        UserEmail = findViewById(R.id.userEmail);
-        Password = findViewById(R.id.password);
         LoginBtn = findViewById(R.id.loginbtn);
+        RegisterBtn = findViewById(R.id.registerbtn);
 
         // Firebase Code
         mAuth = FirebaseAuth.getInstance();
@@ -49,38 +46,25 @@ public class MainActivity extends AppCompatActivity {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){
                 String uid = currentUser.getUid();
-                Toast.makeText(MainActivity.this, "User ID: " + uid, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "User Already Logged In..!!", Toast.LENGTH_SHORT).show();
                 Intent extra = new Intent(MainActivity.this,ExtraActivity.class);
                 extra.putExtra("User ID",uid);
                 startActivity(extra);
             } else {
-                Toast.makeText(MainActivity.this, "Please, Login..!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Welcome..!!", Toast.LENGTH_SHORT).show();
             }
         };
 
         LoginBtn.setOnClickListener(view -> {
-            // User Input Values to the variables
-            final String userEmail = UserEmail.getText().toString().trim();
-            final String password = Password.getText().toString().trim();
+            Intent login = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(login);
+        });
 
-            mAuth.signInWithEmailAndPassword(userEmail, password)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            assert user != null;
-                            String uid = user.getUid();
-                            Toast.makeText(MainActivity.this, "User ID: " + uid, Toast.LENGTH_SHORT).show();
-                            Intent extra = new Intent(MainActivity.this,ExtraActivity.class);
-                            extra.putExtra("User ID",uid);
-                            startActivity(extra);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(MainActivity.this, "Authentication failed..!!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-            });
-        }
+        RegisterBtn.setOnClickListener(view -> {
+            Intent register = new Intent(MainActivity.this,RegisterActivity.class);
+            startActivity(register);
+        });
+    }
 
     @Override
     protected void onStart() {
