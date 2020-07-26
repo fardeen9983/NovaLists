@@ -55,6 +55,6 @@ public class ExtraActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(currentState);
+//        mAuth.addAuthStateListener(currentState);
     }
 }
