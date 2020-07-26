@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class ExtraActivity extends AppCompatActivity {
 
@@ -22,8 +20,6 @@ public class ExtraActivity extends AppCompatActivity {
     private String uid;
 
     // Firebase Code
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
     FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener currentState;
 
