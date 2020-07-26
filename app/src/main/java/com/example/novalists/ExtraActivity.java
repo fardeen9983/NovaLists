@@ -18,6 +18,9 @@ public class ExtraActivity extends AppCompatActivity {
     TextView UserID;
     Button LogoutBtn;
 
+    // General Variables
+    private String uid;
+
     // Firebase Code
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
@@ -35,7 +38,7 @@ public class ExtraActivity extends AppCompatActivity {
         currentState = firebaseAuth -> {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){
-                String uid = currentUser.getUid();
+                uid = currentUser.getUid();
             } else {
                 Toast.makeText(ExtraActivity.this, "Please, Login..!!", Toast.LENGTH_SHORT).show();
                 Intent login = new Intent(ExtraActivity.this,MainActivity.class);
@@ -43,7 +46,7 @@ public class ExtraActivity extends AppCompatActivity {
             }
         };
 
-        UserID.setText(getIntent().getStringExtra("User ID"));
+        UserID.setText(uid);
 
         LogoutBtn.setOnClickListener(view -> {
             FirebaseAuth.getInstance().signOut();

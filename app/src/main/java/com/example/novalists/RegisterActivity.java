@@ -18,6 +18,10 @@ public class RegisterActivity extends AppCompatActivity {
     // General Variables
     EditText UserEmail, Password;
     Button RegisterBtn;
+
+    // General Variables
+    private String uid;
+
     // Firebase Code
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
@@ -43,10 +47,9 @@ public class RegisterActivity extends AppCompatActivity {
         currentState = firebaseAuth -> {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){
-                String uid = currentUser.getUid();
+                uid = currentUser.getUid();
 //                Toast.makeText(RegisterActivity.this, "User Already Logged In..!!", Toast.LENGTH_SHORT).show();
                 Intent extra = new Intent(RegisterActivity.this,ExtraActivity.class);
-                extra.putExtra("User ID",uid);
                 startActivity(extra);
             } else {
                 Toast.makeText(RegisterActivity.this, "Please, Register..!!", Toast.LENGTH_SHORT).show();
@@ -64,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
                         assert user != null;
-                        String uid = user.getUid();
+                        uid = user.getUid();
 //                        Toast.makeText(RegisterActivity.this, "User Created..!!", Toast.LENGTH_SHORT).show();
                         Intent userDetails = new Intent(RegisterActivity.this,RegisterUserDetailsActivity.class);
                         startActivity(userDetails);

@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -70,16 +69,11 @@ public class RegisterUserDetailsActivity extends AppCompatActivity {
             user = new User(name,email,contact,personalList,sentList,receivedList,uid);
 
             myRef = database.getReference().child("Tech Nova/"+uid);
-            Task<Void> x = myRef.setValue(user);
+            myRef.setValue(user);
 
-            if(!(x.isComplete())){
-                Toast.makeText(RegisterUserDetailsActivity.this,"User Not Added..!!",Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(RegisterUserDetailsActivity.this,"User Added..!!",Toast.LENGTH_LONG).show();
-                Intent extra = new Intent(RegisterUserDetailsActivity.this,ExtraActivity.class);
-                extra.putExtra("User ID",uid);
-                startActivity(extra);
-            }
+            Toast.makeText(RegisterUserDetailsActivity.this,"User Added..!!",Toast.LENGTH_LONG).show();
+            Intent extra = new Intent(RegisterUserDetailsActivity.this,ExtraActivity.class);
+            startActivity(extra);
         });
     }
 

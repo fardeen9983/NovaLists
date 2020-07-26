@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 String uid = currentUser.getUid();
                 Toast.makeText(MainActivity.this, "Welcome Back..!!", Toast.LENGTH_SHORT).show();
                 Intent extra = new Intent(MainActivity.this,ExtraActivity.class);
-                extra.putExtra("User ID",uid);
                 startActivity(extra);
             } else {
                 Toast.makeText(MainActivity.this, "Welcome..!!", Toast.LENGTH_SHORT).show();
