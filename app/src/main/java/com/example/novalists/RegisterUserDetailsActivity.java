@@ -70,12 +70,16 @@ public class RegisterUserDetailsActivity extends AppCompatActivity {
             user = new User(name,email,contact,personalList,sentList,receivedList,uid);
 
             myRef = database.getReference().child("Tech Nova/"+uid);
-            myRef.setValue(user);
+            Task<Void> x = myRef.setValue(user);
 
-            Toast.makeText(RegisterUserDetailsActivity.this,"User Added..!!",Toast.LENGTH_LONG).show();
-            Intent extra = new Intent(RegisterUserDetailsActivity.this,ExtraActivity.class);
-            extra.putExtra("User ID",uid);
-            startActivity(extra);
+            if(!(x.isComplete())){
+                Toast.makeText(RegisterUserDetailsActivity.this,"User Not Added..!!",Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(RegisterUserDetailsActivity.this,"User Added..!!",Toast.LENGTH_LONG).show();
+                Intent extra = new Intent(RegisterUserDetailsActivity.this,ExtraActivity.class);
+                extra.putExtra("User ID",uid);
+                startActivity(extra);
+            }
         });
     }
 
