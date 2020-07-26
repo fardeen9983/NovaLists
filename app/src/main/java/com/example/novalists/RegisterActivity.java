@@ -66,9 +66,8 @@ public class RegisterActivity extends AppCompatActivity {
                         assert user != null;
                         String uid = user.getUid();
 //                        Toast.makeText(RegisterActivity.this, "User Created..!!", Toast.LENGTH_SHORT).show();
-                        Intent extra = new Intent(RegisterActivity.this,ExtraActivity.class);
-                        extra.putExtra("User ID",uid);
-                        startActivity(extra);
+                        Intent userDetails = new Intent(RegisterActivity.this,RegisterUserDetailsActivity.class);
+                        startActivity(userDetails);
                     } else {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(RegisterActivity.this, "Registration failed..!!", Toast.LENGTH_SHORT).show();

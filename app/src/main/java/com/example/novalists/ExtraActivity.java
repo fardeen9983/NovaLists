@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,6 +33,17 @@ public class ExtraActivity extends AppCompatActivity {
         LogoutBtn = findViewById(R.id.logoutbtn);
         UserID = findViewById(R.id.userId);
 
+        currentState = firebaseAuth -> {
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser != null){
+                String uid = currentUser.getUid();
+            } else {
+                Toast.makeText(ExtraActivity.this, "Please, Login..!!", Toast.LENGTH_SHORT).show();
+                Intent login = new Intent(ExtraActivity.this,MainActivity.class);
+                startActivity(login);
+            }
+        };
+
         UserID.setText(getIntent().getStringExtra("User ID"));
 
         LogoutBtn.setOnClickListener(view -> {
@@ -40,5 +52,11 @@ public class ExtraActivity extends AppCompatActivity {
             Intent logout = new Intent(ExtraActivity.this,MainActivity.class);
             startActivity(logout);
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(currentState);
     }
 }
