@@ -42,17 +42,6 @@
         android:autofillHints=" " />
 
     <EditText
-        android:id="@+id/userEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/emailHint"
-        android:inputType="textEmailAddress"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:textSize="12sp"
-        android:autofillHints=" " />
-
-    <EditText
         android:id="@+id/userContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

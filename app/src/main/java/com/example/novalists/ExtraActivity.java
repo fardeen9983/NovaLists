@@ -70,7 +70,7 @@ public class ExtraActivity extends AppCompatActivity {
             }
         };
 
-        UserName.setText(user.getName());
+//        UserName.setText(user.getName());
 
         LogoutBtn.setOnClickListener(view -> {
             FirebaseAuth.getInstance().signOut();

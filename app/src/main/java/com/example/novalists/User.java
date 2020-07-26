@@ -10,7 +10,7 @@ public class User {
     private Integer ReceivedList;
     private String UserID;
 
-    public User(String name, String email, String contact, Integer personalList, Integer sentList, Integer receivedList, String userID) {
+    public User(String contact, String email, String name, Integer personalList, Integer sentList, Integer receivedList, String userID) {
         Name = name;
         Email = email;
         Contact = contact;

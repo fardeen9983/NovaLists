@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegisterUserDetailsActivity extends AppCompatActivity {
 
     // General Variables
-    EditText UserName, UserEmail, UserContact;
+    EditText UserName, UserContact;
     Button AddBtn;
     private Integer personalList = 0;
     private Integer sentList = 0;
@@ -39,7 +39,6 @@ public class RegisterUserDetailsActivity extends AppCompatActivity {
 
         // Connection with Front End Values
         UserName = findViewById(R.id.userName);
-        UserEmail = findViewById(R.id.userEmail);
         UserContact = findViewById(R.id.userContact);
         AddBtn = findViewById(R.id.addbtn);
 
@@ -63,10 +62,10 @@ public class RegisterUserDetailsActivity extends AppCompatActivity {
 
         AddBtn.setOnClickListener(view -> {
             final String name = UserName.getText().toString().trim();
-            final String email = UserEmail.getText().toString().trim();
+            final String email = getIntent().getStringExtra("User Email");
             final String contact = UserContact.getText().toString().trim();
 
-            user = new User(name,email,contact,personalList,sentList,receivedList,uid);
+            user = new User(contact,email,name,personalList,sentList,receivedList,uid);
 
             myRef = database.getReference().child("Tech Nova/"+uid);
             myRef.setValue(user).addOnCompleteListener(this,task -> {

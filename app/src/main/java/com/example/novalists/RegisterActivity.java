@@ -70,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
                         uid = user.getUid();
 //                        Toast.makeText(RegisterActivity.this, "User Created..!!", Toast.LENGTH_SHORT).show();
                         Intent userDetails = new Intent(RegisterActivity.this,RegisterUserDetailsActivity.class);
+                        userDetails.putExtra("User Email",userEmail);
                         startActivity(userDetails);
                     } else {
                         // If sign in fails, display a message to the user.
