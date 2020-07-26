@@ -17,7 +17,10 @@ public class ExtraActivity extends AppCompatActivity {
     Button LogoutBtn;
 
     // General Variables
-    private String uid;
+    String uid;
+
+    // Classes
+    User user;
 
     // Firebase Code
     FirebaseAuth mAuth;
@@ -42,7 +45,7 @@ public class ExtraActivity extends AppCompatActivity {
             }
         };
 
-        UserID.setText(uid);
+        UserID.setText(user.getName());
 
         LogoutBtn.setOnClickListener(view -> {
             FirebaseAuth.getInstance().signOut();
@@ -55,6 +58,6 @@ public class ExtraActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        mAuth.addAuthStateListener(currentState);
+        mAuth.addAuthStateListener(currentState);
     }
 }

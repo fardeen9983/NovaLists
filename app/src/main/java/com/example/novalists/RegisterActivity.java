@@ -20,7 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button RegisterBtn;
 
     // General Variables
-    private String uid;
+    String uid;
 
     // Firebase Code
     FirebaseDatabase database = FirebaseDatabase.getInstance();

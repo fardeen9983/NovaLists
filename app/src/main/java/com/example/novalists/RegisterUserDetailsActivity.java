@@ -30,7 +30,7 @@ public class RegisterUserDetailsActivity extends AppCompatActivity {
     DatabaseReference myRef;
     FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener currentState;
-    private String uid;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +69,15 @@ public class RegisterUserDetailsActivity extends AppCompatActivity {
             user = new User(name,email,contact,personalList,sentList,receivedList,uid);
 
             myRef = database.getReference().child("Tech Nova/"+uid);
-            myRef.setValue(user);
-
-            Toast.makeText(RegisterUserDetailsActivity.this,"User Added..!!",Toast.LENGTH_LONG).show();
-            Intent extra = new Intent(RegisterUserDetailsActivity.this,ExtraActivity.class);
-            startActivity(extra);
+            myRef.setValue(user).addOnCompleteListener(this,task -> {
+                if(task.isSuccessful()){
+                    Toast.makeText(RegisterUserDetailsActivity.this,"User Details Added..!!",Toast.LENGTH_LONG).show();
+                    Intent extra = new Intent(RegisterUserDetailsActivity.this,ExtraActivity.class);
+                    startActivity(extra);
+                } else {
+                    Toast.makeText(RegisterUserDetailsActivity.this,"User Details Not Added..!!",Toast.LENGTH_LONG).show();
+                }
+            });
         });
     }
 

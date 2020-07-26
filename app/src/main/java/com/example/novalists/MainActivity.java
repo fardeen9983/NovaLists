@@ -12,8 +12,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    // General Variables
     Button LoginBtn, RegisterBtn;
+    String uid;
+
     // Firebase Code
     FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener currentState;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         currentState = firebaseAuth -> {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){
-                String uid = currentUser.getUid();
+                uid = currentUser.getUid();
                 Toast.makeText(MainActivity.this, "Welcome Back..!!", Toast.LENGTH_SHORT).show();
                 Intent extra = new Intent(MainActivity.this,ExtraActivity.class);
                 startActivity(extra);
