@@ -93,8 +93,8 @@ public class ExtraActivity extends AppCompatActivity {
             });
         } else {
             Toast.makeText(ExtraActivity.this, "Please, Login..!!", Toast.LENGTH_SHORT).show();
-            Intent login = new Intent(ExtraActivity.this,MainActivity.class);
-            startActivity(login);
+            Intent main = new Intent(ExtraActivity.this,MainActivity.class);
+            startActivity(main);
         }
 
         // Working Option but doesn't getting values
