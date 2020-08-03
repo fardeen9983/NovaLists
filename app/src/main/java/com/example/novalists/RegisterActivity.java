@@ -25,8 +25,9 @@ public class RegisterActivity extends AppCompatActivity {
     // Firebase Code
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
-    FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener currentState;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
+    FirebaseAuth.AuthStateListener currentState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +39,10 @@ public class RegisterActivity extends AppCompatActivity {
         Password = findViewById(R.id.password);
         RegisterBtn = findViewById(R.id.registerbtn);
 
-        // Firebase Code
-        mAuth = FirebaseAuth.getInstance();
-
 //    // Check if user is signed in (non-null) and update UI accordingly.
 //    FirebaseUser currentUser = mAuth.getCurrentUser();
 
         currentState = firebaseAuth -> {
-            FirebaseUser currentUser = mAuth.getCurrentUser();
             if(currentUser != null){
                 uid = currentUser.getUid();
 //                Toast.makeText(RegisterActivity.this, "User Already Logged In..!!", Toast.LENGTH_SHORT).show();
@@ -71,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                        Toast.makeText(RegisterActivity.this, "User Created..!!", Toast.LENGTH_SHORT).show();
                         Intent userDetails = new Intent(RegisterActivity.this,RegisterUserDetailsActivity.class);
                         userDetails.putExtra("User Email",userEmail);
+                        userDetails.putExtra("UserID",uid);
                         startActivity(userDetails);
                     } else {
                         // If sign in fails, display a message to the user.
@@ -83,6 +81,6 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(currentState);
+//        mAuth.addAuthStateListener(currentState);
     }
 }

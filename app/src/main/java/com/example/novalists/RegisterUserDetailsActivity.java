@@ -28,8 +28,9 @@ public class RegisterUserDetailsActivity extends AppCompatActivity {
     // Firebase Code
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
-    FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener currentState;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
+    FirebaseAuth.AuthStateListener currentState;
     String uid;
 
     @Override
@@ -42,23 +43,28 @@ public class RegisterUserDetailsActivity extends AppCompatActivity {
         UserContact = findViewById(R.id.userContact);
         AddBtn = findViewById(R.id.addbtn);
 
-        // Firebase Code
-        mAuth = FirebaseAuth.getInstance();
-
 //    // Check if user is signed in (non-null) and update UI accordingly.
 //    FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        currentState = firebaseAuth -> {
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            if(currentUser != null){
-                uid = currentUser.getUid();
-//                Toast.makeText(RegisterActivity.this, "User Already Logged In..!!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(RegisterUserDetailsActivity.this, "Please, Register..!!", Toast.LENGTH_SHORT).show();
-                Intent register = new Intent(RegisterUserDetailsActivity.this,MainActivity.class);
-                startActivity(register);
-            }
-        };
+//        currentState = firebaseAuth -> {
+//            if(currentUser != null){
+//                uid = currentUser.getUid();
+////                Toast.makeText(RegisterActivity.this, "User Already Logged In..!!", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Toast.makeText(RegisterUserDetailsActivity.this, "Please, Register..!!", Toast.LENGTH_SHORT).show();
+//                Intent register = new Intent(RegisterUserDetailsActivity.this,MainActivity.class);
+//                startActivity(register);
+//            }
+//        };
+
+        uid = getIntent().getStringExtra("UserID");
+        if(uid != null){
+            Toast.makeText(RegisterUserDetailsActivity.this, "Please Enter Details..!!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(RegisterUserDetailsActivity.this, "Please, Register..!!", Toast.LENGTH_SHORT).show();
+            Intent register = new Intent(RegisterUserDetailsActivity.this,MainActivity.class);
+            startActivity(register);
+        }
 
         AddBtn.setOnClickListener(view -> {
             final String name = UserName.getText().toString().trim();
@@ -80,9 +86,9 @@ public class RegisterUserDetailsActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(currentState);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+////        mAuth.addAuthStateListener(currentState);
+//    }
 }

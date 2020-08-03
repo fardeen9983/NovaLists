@@ -31,8 +31,9 @@ public class ExtraActivity extends AppCompatActivity {
     // Firebase Code
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
-    FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener currentState;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
+    FirebaseAuth.AuthStateListener currentState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,35 +43,68 @@ public class ExtraActivity extends AppCompatActivity {
         UserName = findViewById(R.id.userName);
         LogoutBtn = findViewById(R.id.logoutbtn);
 
-        currentState = firebaseAuth -> {
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            if(currentUser != null){
-                uid = currentUser.getUid();
-                myRef = database.getReference().child("Tech Nova/"+uid);
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()) {
-                            user = snapshot.getValue(User.class);
-                            assert user != null;
-                        } else {
-                            Toast.makeText(ExtraActivity.this,"User not Found", Toast.LENGTH_LONG).show();
-                        }
-                    }
+//        currentState = firebaseAuth -> {
+//            if(currentUser != null){
+//                uid = currentUser.getUid();
+//                myRef = database.getReference().child("Tech Nova/"+uid);
+//                myRef.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if(snapshot.exists()) {
+//                            user = snapshot.getValue(User.class);
+//                            assert user != null;
+//                            Toast.makeText(ExtraActivity.this,"Welcome, " + user.getName(), Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Toast.makeText(ExtraActivity.this,"User not Found", Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//                        Toast.makeText(ExtraActivity.this, "Error", Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//            } else {
+//                Toast.makeText(ExtraActivity.this, "Please, Login..!!", Toast.LENGTH_SHORT).show();
+//                Intent login = new Intent(ExtraActivity.this,MainActivity.class);
+//                startActivity(login);
+//            }
+//        };
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(ExtraActivity.this, "Error", Toast.LENGTH_LONG).show();
+        uid = getIntent().getStringExtra("UserID");
+        if(uid != null){
+            myRef = database.getReference().child("Tech Nova/"+uid);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()) {
+                        user = snapshot.getValue(User.class);
+                        assert user != null;
+                        Toast.makeText(ExtraActivity.this,"Welcome, " + user.getName(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(ExtraActivity.this,"User not Found", Toast.LENGTH_LONG).show();
                     }
-                });
-            } else {
-                Toast.makeText(ExtraActivity.this, "Please, Login..!!", Toast.LENGTH_SHORT).show();
-                Intent login = new Intent(ExtraActivity.this,MainActivity.class);
-                startActivity(login);
-            }
-        };
+                }
 
-//        UserName.setText(user.getName());
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(ExtraActivity.this, "Error", Toast.LENGTH_LONG).show();
+                }
+            });
+        } else {
+            Toast.makeText(ExtraActivity.this, "Please, Login..!!", Toast.LENGTH_SHORT).show();
+            Intent login = new Intent(ExtraActivity.this,MainActivity.class);
+            startActivity(login);
+        }
+
+        // Working Option but doesn't getting values
+//        try {
+//            UserName.setText(user.getName());
+//        } catch (NullPointerException ignored){
+//
+//        }
+
+        UserName.setText(user.getName());
 
         LogoutBtn.setOnClickListener(view -> {
             FirebaseAuth.getInstance().signOut();
@@ -80,9 +114,9 @@ public class ExtraActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(currentState);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+////        mAuth.addAuthStateListener(currentState);
+//    }
 }

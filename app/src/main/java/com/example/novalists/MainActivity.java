@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -17,8 +18,9 @@ public class MainActivity extends AppCompatActivity {
     String uid;
 
     // Firebase Code
-    FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener currentState;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
+    FirebaseAuth.AuthStateListener currentState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,30 +30,26 @@ public class MainActivity extends AppCompatActivity {
         LoginBtn = findViewById(R.id.loginbtn);
         RegisterBtn = findViewById(R.id.registerbtn);
 
-        // Firebase Code
-        mAuth = FirebaseAuth.getInstance();
-
 //    // Check if user is signed in (non-null) and update UI accordingly.
 //    FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        currentState = firebaseAuth -> {
-            FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentState = (FirebaseAuth firebaseAuth) -> {
             if(currentUser != null){
                 uid = currentUser.getUid();
-                Toast.makeText(MainActivity.this, "Welcome Back..!!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Welcome Back..!!", Toast.LENGTH_SHORT).show();
                 Intent extra = new Intent(MainActivity.this,ExtraActivity.class);
+                extra.putExtra("UserID",uid);
                 startActivity(extra);
             } else {
                 Toast.makeText(MainActivity.this, "Welcome..!!", Toast.LENGTH_SHORT).show();
             }
         };
 
-        LoginBtn.setOnClickListener(view -> {
+        LoginBtn.setOnClickListener((View view) -> {
             Intent login = new Intent(MainActivity.this,LoginActivity.class);
             startActivity(login);
         });
 
-        RegisterBtn.setOnClickListener(view -> {
+        RegisterBtn.setOnClickListener((View view) -> {
             Intent register = new Intent(MainActivity.this,RegisterActivity.class);
             startActivity(register);
         });
@@ -60,6 +58,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(currentState);
+//        mAuth.addAuthStateListener(currentState);
     }
 }
