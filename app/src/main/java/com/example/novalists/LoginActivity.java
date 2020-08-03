@@ -20,7 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText UserEmail, Password;
     Button LoginBtn;
     String uid;
-    
 
     // Firebase Code
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
