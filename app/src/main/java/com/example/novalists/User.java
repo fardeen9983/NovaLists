@@ -10,6 +10,9 @@ public class User {
     private Integer ReceivedList;
     private String UserID;
 
+    public User() {
+    }
+
     public User(String contact, String email, String name, Integer personalList, Integer sentList, Integer receivedList, String userID) {
         Name = name;
         Email = email;

@@ -1,12 +1,12 @@
 package com.example.novalists;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -78,6 +78,7 @@ public class RegisterUserDetailsActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(RegisterUserDetailsActivity.this,"User Details Added..!!",Toast.LENGTH_LONG).show();
                     Intent extra = new Intent(RegisterUserDetailsActivity.this,ExtraActivity.class);
+                    extra.putExtra("UserID", uid);
                     startActivity(extra);
                 } else {
                     Toast.makeText(RegisterUserDetailsActivity.this,"User Details Not Added..!!",Toast.LENGTH_LONG).show();
